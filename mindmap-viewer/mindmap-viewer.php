@@ -26,15 +26,12 @@ require_once MINDMAP_VIEWER_PATH . 'includes/class-mindmap-meta.php';
 // Load REST API.
 require_once MINDMAP_VIEWER_PATH . 'includes/class-mindmap-api.php';
 
-/**
- * Initialize the plugin.
- */
-function mindmap_viewer_init() {
-    Mindmap_CPT::init();
-    Mindmap_Meta::init();
-    Mindmap_API::init();
-}
-add_action( 'init', 'mindmap_viewer_init' );
+// Register custom post type on init.
+add_action( 'init', array( 'Mindmap_CPT', 'register_post_type' ) );
+
+// Wire up meta boxes and REST routes (these hooks fire later, safe to register now).
+Mindmap_Meta::init();
+Mindmap_API::init();
 
 /**
  * Enqueue admin assets.

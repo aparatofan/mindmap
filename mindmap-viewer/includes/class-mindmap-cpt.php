@@ -5,10 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Mindmap_CPT {
 
-    public static function init() {
-        self::register_post_type();
-    }
-
     public static function register_post_type() {
         $labels = array(
             'name'               => __( 'Mind Maps', 'mindmap-viewer' ),
