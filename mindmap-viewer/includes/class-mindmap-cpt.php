@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Mindmap_CPT {
 
     public static function init() {
-        add_action( 'init', array( __CLASS__, 'register_post_type' ), 5 );
+        self::register_post_type();
     }
 
     public static function register_post_type() {
