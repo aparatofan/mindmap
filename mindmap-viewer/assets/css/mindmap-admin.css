@@ -1,0 +1,154 @@
+/* ──────────────────────────────────────────────
+   Mindmap Admin Styles
+   ────────────────────────────────────────────── */
+
+.mindmap-meta-table {
+    width: 100%;
+}
+
+.mindmap-meta-table th {
+    width: 150px;
+    padding: 10px 10px 10px 0;
+    vertical-align: top;
+}
+
+.mindmap-meta-table td {
+    padding: 10px 0;
+}
+
+/* Image field */
+.mindmap-image-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.mindmap-image-preview {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+}
+
+.mindmap-image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+/* Branch card */
+.mindmap-branch {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.mindmap-branch-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #E1EEFA;
+    border-bottom: 1px solid #ccd0d4;
+    border-radius: 6px 6px 0 0;
+    cursor: move;
+}
+
+.mindmap-branch-title {
+    font-weight: 600;
+    font-size: 14px;
+    flex: 1;
+    color: #17223c;
+}
+
+.mindmap-branch-drag-handle {
+    color: #999;
+    cursor: move;
+}
+
+.mindmap-branch-body {
+    padding: 14px;
+}
+
+.mindmap-remove-branch {
+    color: #a00 !important;
+    border-color: #a00 !important;
+}
+
+/* Item card */
+.mindmap-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    border-left: 3px solid #ea5b0c;
+}
+
+.mindmap-item-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+}
+
+.mindmap-item-header input {
+    flex: 1;
+}
+
+.mindmap-item-drag-handle {
+    color: #bbb;
+    cursor: move;
+}
+
+.mindmap-item-body {
+    padding: 10px 14px;
+    background: #fafafa;
+    border-top: 1px solid #eee;
+}
+
+/* Note card */
+.mindmap-note {
+    background: #FFF8F0;
+    border: 1px solid #FFE3CC;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 10px;
+}
+
+.mindmap-note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.mindmap-note-label {
+    font-weight: 600;
+    font-size: 12px;
+    color: #ea5b0c;
+}
+
+.mindmap-note-body textarea {
+    width: 100%;
+}
+
+/* Buttons */
+#mindmap-add-branch {
+    margin-top: 8px;
+}
+
+.mindmap-items-wrapper {
+    min-height: 20px;
+}
+
+.mindmap-notes-wrapper {
+    min-height: 10px;
+}

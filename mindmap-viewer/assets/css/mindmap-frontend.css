@@ -1,0 +1,242 @@
+/* ──────────────────────────────────────────────
+   Mindmap Frontend Styles
+   ────────────────────────────────────────────── */
+
+.mindmap-container {
+    width: 100%;
+    min-height: 400px;
+    height: 600px;
+    background: #ffffff;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.mindmap-container svg {
+    display: block;
+}
+
+/* ─── Node hover effects ─── */
+
+.mindmap-branch-node {
+    transition: opacity 0.15s;
+}
+
+.mindmap-branch-node:hover .mindmap-branch-bg {
+    stroke: #ea5b0c;
+    stroke-width: 3;
+}
+
+.mindmap-item-node {
+    transition: opacity 0.15s;
+}
+
+.mindmap-item-node:hover .mindmap-item-bg {
+    stroke: #ea5b0c;
+    stroke-width: 2;
+    fill: #FFE3CC;
+}
+
+.mindmap-expand-indicator {
+    cursor: pointer;
+    transition: fill 0.15s;
+}
+
+.mindmap-branch-node:hover .mindmap-expand-indicator {
+    fill: #ea5b0c;
+}
+
+/* ─── Connection lines ─── */
+
+.mindmap-connection {
+    transition: stroke 0.2s, stroke-width 0.2s;
+}
+
+.mindmap-connection-item {
+    transition: stroke 0.2s;
+}
+
+/* ─── Central node ─── */
+
+.mindmap-central-bg {
+    transition: r 0.2s;
+}
+
+.mindmap-central:hover .mindmap-central-bg {
+    r: 85;
+}
+
+.mindmap-central-text {
+    pointer-events: none;
+}
+
+/* ─── Notes popup overlay ─── */
+
+.mindmap-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(23, 34, 60, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.mindmap-popup {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(23, 34, 60, 0.25);
+    max-width: 520px;
+    width: 90%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: mindmap-popup-in 0.2s ease-out;
+}
+
+@keyframes mindmap-popup-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.mindmap-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 2px solid #E1EEFA;
+    background: #E1EEFA;
+}
+
+.mindmap-popup-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #17223c;
+    flex: 1;
+    margin-right: 12px;
+}
+
+.mindmap-popup-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #17223c;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+}
+
+.mindmap-popup-close:hover {
+    opacity: 1;
+    color: #ea5b0c;
+}
+
+.mindmap-popup-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.mindmap-popup-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #17223c;
+    margin-bottom: 16px;
+}
+
+.mindmap-popup-image {
+    text-align: center;
+}
+
+.mindmap-popup-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.mindmap-popup-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.mindmap-popup-prev,
+.mindmap-popup-next {
+    background: #17223c;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.mindmap-popup-prev:hover,
+.mindmap-popup-next:hover {
+    background: #ea5b0c;
+}
+
+.mindmap-popup-prev:disabled,
+.mindmap-popup-next:disabled {
+    opacity: 0.3;
+    cursor: default;
+    background: #17223c;
+}
+
+.mindmap-popup-counter {
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+}
+
+/* ─── Placeholder ─── */
+
+.mindmap-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: #E1EEFA;
+    border-radius: 8px;
+    color: #17223c;
+    font-size: 16px;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+    .mindmap-popup {
+        width: 95%;
+        max-height: 90%;
+    }
+
+    .mindmap-popup-body {
+        padding: 14px;
+    }
+
+    .mindmap-popup-prev,
+    .mindmap-popup-next {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
