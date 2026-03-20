@@ -1,6 +1,8 @@
 (function($) {
     'use strict';
 
+$(document).ready(function() {
+
     var branchCounter = $('#mindmap-branches-wrapper .mindmap-branch').length;
 
     // ──────────────────────────────────────────────
@@ -121,22 +123,24 @@
     // ──────────────────────────────────────────────
     // Sortable branches
     // ──────────────────────────────────────────────
-    $('#mindmap-branches-wrapper').sortable({
-        handle: '.mindmap-branch-drag-handle',
-        items: '> .mindmap-branch',
-        update: function() {
-            renumberBranches();
-        }
-    });
-
-    // Sortable items within each branch
-    $(document).on('sortable-init', function() {
-        $('.mindmap-items-wrapper').sortable({
-            handle: '.mindmap-item-drag-handle',
-            items: '> .mindmap-item'
+    if ($.fn.sortable) {
+        $('#mindmap-branches-wrapper').sortable({
+            handle: '.mindmap-branch-drag-handle',
+            items: '> .mindmap-branch',
+            update: function() {
+                renumberBranches();
+            }
         });
-    });
-    $(document).trigger('sortable-init');
+
+        // Sortable items within each branch
+        $(document).on('sortable-init', function() {
+            $('.mindmap-items-wrapper').sortable({
+                handle: '.mindmap-item-drag-handle',
+                items: '> .mindmap-item'
+            });
+        });
+        $(document).trigger('sortable-init');
+    }
 
     // ──────────────────────────────────────────────
     // Re-index form names after reorder / remove
@@ -173,5 +177,7 @@
             $(this).find('.mindmap-notes-wrapper').attr('data-branch', bIdx);
         });
     }
+
+}); // end document.ready
 
 })(jQuery);

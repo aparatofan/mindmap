@@ -25,6 +25,7 @@ class Mindmap_CPT {
             'public'       => false,
             'show_ui'      => true,
             'show_in_menu' => true,
+            'show_in_rest' => false,
             'menu_icon'    => 'dashicons-networking',
             'supports'     => array( 'title' ),
             'has_archive'  => false,
@@ -32,5 +33,13 @@ class Mindmap_CPT {
         );
 
         register_post_type( 'mindmap', $args );
+
+        // Force classic editor for mind maps (meta boxes are not block-editor compatible).
+        add_filter( 'use_block_editor_for_post_type', function( $use, $post_type ) {
+            if ( 'mindmap' === $post_type ) {
+                return false;
+            }
+            return $use;
+        }, 10, 2 );
     }
 }
