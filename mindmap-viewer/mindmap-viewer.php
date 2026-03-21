@@ -86,14 +86,10 @@ function mindmap_viewer_frontend_assets() {
 add_action( 'wp_enqueue_scripts', 'mindmap_viewer_frontend_assets' );
 
 /**
- * Load Divi module.
+ * Divi module disabled — use [mindmap id="123"] shortcode instead.
+ * The native Divi module triggered fatal errors on PHP 8.3 and will be
+ * revisited in a future release.
  */
-function mindmap_viewer_divi_modules() {
-    if ( class_exists( 'ET_Builder_Module' ) ) {
-        require_once MINDMAP_VIEWER_PATH . 'divi-module/MindmapViewer/MindmapViewer.php';
-    }
-}
-add_action( 'et_builder_ready', 'mindmap_viewer_divi_modules' );
 
 /**
  * Register shortcode as fallback.
