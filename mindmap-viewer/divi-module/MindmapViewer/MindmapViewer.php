@@ -53,9 +53,9 @@ class Mindmap_Viewer_Divi_Module extends ET_Builder_Module {
         );
     }
 
-    public function render( $attrs, $content, $render_slug ) {
-        $mindmap_id = absint( $this->props['mindmap_id'] );
-        $height     = sanitize_text_field( $this->props['map_height'] );
+    public function render( $attrs, $content = null, $render_slug = '' ) {
+        $mindmap_id = absint( $this->props['mindmap_id'] ?? 0 );
+        $height     = sanitize_text_field( $this->props['map_height'] ?? '600px' );
 
         if ( ! $mindmap_id || 'mindmap' !== get_post_type( $mindmap_id ) ) {
             return '<div class="mindmap-placeholder">' . esc_html__( 'Please select a mind map.', 'mindmap-viewer' ) . '</div>';
