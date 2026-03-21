@@ -488,7 +488,7 @@
             // Click to open popup
             group.addEventListener('click', function(e) {
                 e.stopPropagation();
-                openPopup(state, branchIdx, itemIdx, 0);
+                openPopup(state, branchIdx, itemIdx);
             });
         }
 
@@ -498,19 +498,30 @@
     // ──────────────────────────────────────────────
     // Notes Popup
     // ──────────────────────────────────────────────
-    function openPopup(state, branchIdx, itemIdx, noteIdx) {
+    function openPopup(state, branchIdx, itemIdx) {
         var branch = state.data.branches[branchIdx];
-        var item = branch.items[itemIdx];
-        var notes = item.notes || [];
-        if (notes.length === 0) return;
+        var items = branch.items || [];
+
+        // Build list of item indices within this branch that have notes
+        var itemsWithNotes = [];
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].notes && items[i].notes.length > 0) {
+                itemsWithNotes.push(i);
+            }
+        }
+        if (itemsWithNotes.length === 0) return;
+
+        // Find position of current item in the navigation list
+        var navPos = itemsWithNotes.indexOf(itemIdx);
+        if (navPos === -1) return;
+
+        var item = items[itemIdx];
+        var note = item.notes[0]; // each item has one note
+        var total = itemsWithNotes.length;
 
         var overlay = state.popupOverlay;
         overlay.style.display = 'flex';
 
-        var note = notes[noteIdx];
-        var total = notes.length;
-
-        // Find all items in the same branch for cross-item navigation context
         var itemTitle = item.text || 'Note';
 
         var html = '<div class="mindmap-popup">';
@@ -527,9 +538,9 @@
         }
         html += '</div>';
         html += '<div class="mindmap-popup-nav">';
-        html += '<button class="mindmap-popup-prev" ' + (noteIdx <= 0 ? 'disabled' : '') + '>&larr; Previous</button>';
-        html += '<span class="mindmap-popup-counter">' + (noteIdx + 1) + ' / ' + total + '</span>';
-        html += '<button class="mindmap-popup-next" ' + (noteIdx >= total - 1 ? 'disabled' : '') + '>Next &rarr;</button>';
+        html += '<button class="mindmap-popup-prev" ' + (navPos <= 0 ? 'disabled' : '') + '>&larr; Previous</button>';
+        html += '<span class="mindmap-popup-counter">' + (navPos + 1) + ' / ' + total + '</span>';
+        html += '<button class="mindmap-popup-next" ' + (navPos >= total - 1 ? 'disabled' : '') + '>Next &rarr;</button>';
         html += '</div>';
         html += '</div>';
 
@@ -547,22 +558,22 @@
         var prevBtn = overlay.querySelector('.mindmap-popup-prev');
         var nextBtn = overlay.querySelector('.mindmap-popup-next');
 
-        if (prevBtn && noteIdx > 0) {
+        if (prevBtn && navPos > 0) {
             prevBtn.addEventListener('click', function() {
-                openPopup(state, branchIdx, itemIdx, noteIdx - 1);
+                openPopup(state, branchIdx, itemsWithNotes[navPos - 1]);
             });
         }
-        if (nextBtn && noteIdx < total - 1) {
+        if (nextBtn && navPos < total - 1) {
             nextBtn.addEventListener('click', function() {
-                openPopup(state, branchIdx, itemIdx, noteIdx + 1);
+                openPopup(state, branchIdx, itemsWithNotes[navPos + 1]);
             });
         }
 
         // Keyboard navigation
         state._popupKeyHandler = function(e) {
             if (e.key === 'Escape') closePopup(state);
-            if (e.key === 'ArrowLeft' && noteIdx > 0) openPopup(state, branchIdx, itemIdx, noteIdx - 1);
-            if (e.key === 'ArrowRight' && noteIdx < total - 1) openPopup(state, branchIdx, itemIdx, noteIdx + 1);
+            if (e.key === 'ArrowLeft' && navPos > 0) openPopup(state, branchIdx, itemsWithNotes[navPos - 1]);
+            if (e.key === 'ArrowRight' && navPos < total - 1) openPopup(state, branchIdx, itemsWithNotes[navPos + 1]);
         };
         document.addEventListener('keydown', state._popupKeyHandler);
     }
